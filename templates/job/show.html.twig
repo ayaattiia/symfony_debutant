@@ -1,0 +1,24 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails du Job{% endblock %}
+
+{% block body %}
+    <h1>Consultation du Job</h1>
+
+    <h2>Type : {{ job.type }}</h2>
+    <h2>Entreprise : {{ job.company }}</h2>
+    <h2>Description : {{ job.discription }}</h2>
+    <h2>Email : {{ job.email }}</h2>
+    <h2>Date d'expiration : {{ job.expiresAt|date('d-m-Y') }}</h2>
+
+
+    {% if job.image is not null %}
+        <h2>Image du Job :</h2>
+        <img src="{{ job.image.url }}"
+            alt="{{ job.image.alt }}"
+            height="150">
+    {% endif %}
+
+
+{% endblock %}

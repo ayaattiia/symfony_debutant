@@ -1,0 +1,40 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Jobs{% endblock %}
+
+{% block body %}
+    <h1>Liste des Jobs</h1>
+
+<a href="{{ path('job_new') }}">➕ Ajouter un Job</a>
+
+    <ul>
+        {% for job in jobs %}
+            <li>
+                {{ job.company }} -
+                {{ job.type }} -
+                {{ job.email }}
+
+                <a href="{{ path('job_edit', {'id': job.id}) }}">
+                    Modifier
+                </a>
+                <a href="{{ path('job_show', {'id': job.id}) }}">
+                    Voir détails
+                </a>
+
+                <form method="post"
+                      action="{{ path('job_delete', {'id': job.id}) }}"
+                      onsubmit="return confirm('Supprimer ce Job ?');">
+
+                    <input type="hidden"
+                           name="_token"
+                           value="{{ csrf_token('delete' ~ job.id) }}">
+
+                    <button type="submit">Supprimer</button>
+                </form>
+            </li>
+        {% else %}
+            <li>Aucun job trouvé.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

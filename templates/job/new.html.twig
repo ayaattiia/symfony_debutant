@@ -1,0 +1,20 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un Job{% endblock %}
+
+{% block body %}
+    <h1>Ajouter un Job</h1>
+
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+        {{ form_row(form.type) }}
+        {{ form_row(form.company) }}
+        {{ form_row(form.discription) }}
+        {{ form_row(form.expiresAt) }}
+        {{ form_row(form.email) }}
+
+        <button type="submit">Enregistrer</button>
+
+    {{ form_end(form) }}
+{% endblock %}
