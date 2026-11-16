@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 
 
+
 #[ORM\Entity(repositoryClass: JobRepository::class)]
 class Job
 {
@@ -28,9 +29,9 @@ class Job
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank(message: 'Description obligatoire')]
     private ?string $discription = null;
-    
 
     #[ORM\Column]
+    #[Assert\NotNull(message: "La date d'expiration est obligatoire")]
     private ?\DateTime $expiresAt = null;
 
     #[ORM\Column(length: 255)]
@@ -54,7 +55,6 @@ class Job
     public function setType(string $type): static
     {
         $this->type = $type;
-
         return $this;
     }
 
@@ -66,7 +66,6 @@ class Job
     public function setCompany(string $company): static
     {
         $this->company = $company;
-
         return $this;
     }
 
@@ -78,7 +77,6 @@ class Job
     public function setDiscription(string $discription): static
     {
         $this->discription = $discription;
-
         return $this;
     }
 
@@ -87,10 +85,9 @@ class Job
         return $this->expiresAt;
     }
 
-    public function setExpiresAt(\DateTime $expiresAt): static
+    public function setExpiresAt(?\DateTime $expiresAt): static
     {
         $this->expiresAt = $expiresAt;
-
         return $this;
     }
 
@@ -102,7 +99,6 @@ class Job
     public function setEmail(string $email): static
     {
         $this->email = $email;
-
         return $this;
     }
 
@@ -114,8 +110,6 @@ class Job
     public function setImage(?Image $image): static
     {
         $this->image = $image;
-
         return $this;
     }
-    
 }
