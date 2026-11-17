@@ -43,4 +43,18 @@
         </div>
     </div>
 </div>
+
+<h3>Liste des candidatures</h3>
+
+{% for candidature in listCandidatures %}
+    <h4>Candidat : {{ candidature.candidat }}</h4>
+
+    <ul>
+        <li>Contenu : {{ candidature.contenu }}</li>
+        <li>Date : {{ candidature.date|date('d-m-Y') }}</li>
+    </ul>
+{% else %}
+    <p>Aucune candidature pour ce Job.</p>
+{% endfor %}
+
 {% endblock %}

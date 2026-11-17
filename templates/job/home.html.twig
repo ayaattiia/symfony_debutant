@@ -1,0 +1,82 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Candidatures{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+
+    <h2>Liste des Candidats</h2>
+
+    <a href="{{ path('add_candidat') }}">
+        Ajouter une candidature
+    </a>
+
+{% for message in app.flashes('notice') %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+{% endfor %}
+
+
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom & Prénom</th>
+                <th>Date</th>
+                <th>Contenu</th>
+                <th>Job</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for candidat in lesCandidats %}
+                <tr>
+                    <td>{{ candidat.id }}</td>
+                    <td>{{ candidat.candidat|upper }}</td>
+                    <td>{{ candidat.date|date('d/m/Y') }}</td>
+                    <td>{{ candidat.contenu }}</td>
+                    <td>{{ candidat.job.type }}</td>
+
+<td>
+
+    <form method="post"
+          action="{{ path('cand_delete', {'id': candidat.id}) }}"
+          onsubmit="return confirm('Supprimer cette candidature ?');">
+
+        <input type="hidden"
+               name="_token"
+               value="{{ csrf_token('delete_cand' ~ candidat.id) }}">
+
+
+<a href="{{ path('edit_user', {'id': candidat.id}) }}"
+   class="btn btn-success">
+    Modifier
+</a>
+
+        <button type="submit" class="btn btn-danger">
+            Supprimer
+        </button>
+    </form>
+</td>
+
+                </tr>
+                
+            {% else %}
+                <tr>
+                    <td colspan="5">
+                        Aucune candidature trouvée.
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+
+
+
+
+{% endblock %}
